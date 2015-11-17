@@ -1,2 +1,2 @@
 # coaltar_shmup
-Shooter game in Phaser.js
+Shoot em' up game in Phaser.js
