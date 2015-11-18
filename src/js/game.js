@@ -554,9 +554,17 @@
         },
 
         preload: function () {
+          //this.asset = this.add.sprite(this.game.width * 0.5 - 110, this.game.height * 0.5 - 10, 'assets/preloader.gif');
+          //this.load.setPreloadSprite(this.asset);
 
-            //  We need this because the assets are on Amazon S3
-            //  Remove the next 2 lines if running locally
+          // this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
+          this.loadResources();
+
+          this.sready = true;
+        },
+
+        loadResources: function () {
+          // load your assets here
             this.load.baseURL = 'http://files.phaser.io.s3.amazonaws.com/codingtips/issue007/';
             this.load.crossOrigin = 'anonymous';
 
@@ -564,14 +572,15 @@
             this.load.image('foreground', 'assets/fore.png');
             this.load.image('player', 'assets/ship.png');
             this.load.bitmapFont('shmupfont', 'assets/shmupfont.png', 'assets/shmupfont.xml');
+            
+            var path = document.location.pathname;
+            var dir = path.substring(path.indexOf('/', 1)+1, path.lastIndexOf('/'));
+            console.log(dir);
 
             for (var i = 1; i <= 11; i++)
             {
                 this.load.image('bullet' + i, 'assets/bullet' + i + '.png');
             }
-
-            //  Note: Graphics are not for use in any commercial project
-
         },
 
         create: function () {
@@ -671,7 +680,7 @@
             }
 
             if (this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
-            {
+            {   
                 this.weapons[this.currentWeapon].fire(this.player);
             }
 
